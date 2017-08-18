@@ -1,0 +1,30 @@
+{
+  "name": "ghost-post",
+  "main": "ghost-post.html",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "iron-ajax": "^2.0.5"
+  },
+  "devDependencies": {
+    "iron-component-page": "polymerelements/iron-component-page#^3.0.0",
+    "iron-test-helpers": "polymerelements/iron-test-helpers#^2.0.0",
+    "test-fixture": "polymerelements/test-fixture#^2.0.1",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "demos": {
+    "Demo": "demo/index.html"
+  },
+  "resolutions": {
+    "test-fixture": "^2.0.1"
+  }
+}

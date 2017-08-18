@@ -1,0 +1,114 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+
+<link rel="import" href="../shadycss/apply-shim.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+
+
+<dom-module id="ghost-post">
+  <template>
+    <style>
+       :host {
+        display: block;
+      }
+
+      #wrapper {
+        @apply --ghost-post-style;
+      }
+
+      #heading {
+        @apply --ghost-post-heading;
+      }
+
+      img {
+        width: 100%;
+        @apply --ghost-post-image;
+      }
+
+      #post {
+        @apply --ghost-post-content;
+      }
+    </style>
+    <div id="wrapper">
+      <h1 id="heading">{{title}}</h1>
+      <img src="{{image}}">
+      <div id="post"></div>
+    </div>
+
+    <iron-ajax id="ironAjax" url="{{ajaxUrl}}" last-response="{{ghostResponse}}"></iron-ajax>
+  </template>
+
+  <script>
+    /**
+     * `ghost-post`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class GhostPost extends Polymer.Element {
+      static get is() { return 'ghost-post'; }
+      static get properties() {
+        return {
+          /** The URL of the GhostBlog */
+          ghostUrl: {
+            type: String,
+          },
+          /** Optional - The Blog's OAuth ClientId */
+          ghostClientId: {
+            type: String,
+            value: 'ghost-frontend',
+          },
+          /** The Blog's OAuth ClientSecret */
+          ghostClientSecret: {
+            type: String,
+            value: '31dda053fc55',
+          },
+          /** The id of the post to render */
+          postId: {
+            type: String,
+          },
+
+          ajaxUrl: {
+            type: String,
+            computed: 'computeAjaxUrl(ghostUrl, postId)',
+          }
+        };
+      }
+
+      static get observers() {
+        return [
+          'ghostPropertiesChanged(ghostUrl, ghostClientId, ghostClientSecret, postId)',
+          'ghostResponseChanged(ghostResponse)',
+        ];
+      }
+
+      async ghostResponseChanged() {
+        if (this.ghostResponse) {
+          this.title = this.ghostResponse.posts[0].title;
+          this.image = this.ghostResponse.posts[0].feature_image;
+          this.$.post.innerHTML = this.ghostResponse.posts[0].html;
+        }
+      }
+      ghostPropertiesChanged() {
+        if (this.ghostClientId && this.ghostClientSecret && this.ghostUrl && this.postId) {
+          this.$.ironAjax.params = {
+            client_id: this.ghostClientId,
+            client_secret: this.ghostClientSecret,
+            formats: 'html'
+          }
+          this.$.ironAjax.generateRequest();
+        }
+      }
+
+      computeAjaxUrl() {
+        if (this.ghostUrl && this.postId) {
+          return `${this.ghostUrl}/ghost/api/v0.1/posts/${this.postId}`
+        }
+      }
+    }
+
+    window.customElements.define(GhostPost.is, GhostPost);
+  </script>
+</dom-module>

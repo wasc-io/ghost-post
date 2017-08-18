@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>ghost-post demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../ghost-post.html">
+
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+
+    </style>
+  </custom-style>
+</head>
+
+<body>
+  <div class="vertical-section-container centered">
+    <h3>Basic ghost-post demo</h3>
+    <demo-snippet>
+      <template>
+        <ghost-post ghost-url="http://172.17.0.2:2368" post-id="598f6f694843600034fc371a"></ghost-post>
+      </template>
+    </demo-snippet>
+  </div>
+</body>
+
+</html>

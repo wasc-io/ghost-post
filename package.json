@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "mobiledoc-dom-renderer": "^0.6.5"
+  }
+}
